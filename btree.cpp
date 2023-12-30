@@ -2,12 +2,19 @@
 #include <iostream>
 #include <random>
 
+static PNode btBuildBalancedAux(int h, int n) {
     if (h-- < 0)
         return nullptr;
+    return new Node{n, btBuildBalancedAux(h, n + 1),
+                    btBuildBalancedAux(h, n + 1)};
 }
 
-static void btreePrintAux(const std::string& prefix, const PNode node,
-                          bool isLeft) {
+PNode btBuildBalanced(int h) {
+    return btBuildBalancedAux(h, 0);
+}
+
+static void btPrintAux(const std::string& prefix, const PNode node,
+                       bool isLeft) {
     std::cout << prefix;
     std::cout << (isLeft ? "├── " : "└── ");
 
@@ -17,29 +24,30 @@ static void btreePrintAux(const std::string& prefix, const PNode node,
     }
 
     std::cout << node->key << std::endl;
-    btreePrintAux(prefix + (isLeft ? "│   " : "    "), node->left, true);
-    btreePrintAux(prefix + (isLeft ? "│   " : "    "), node->right, false);
+    btPrintAux(prefix + (isLeft ? "│   " : "    "), node->left, true);
+    btPrintAux(prefix + (isLeft ? "│   " : "    "), node->right, false);
 }
 
-void btreePrint(const PNode node) {
-    btreePrintAux("", node, false);
+void btPrint(const PNode node) {
+    btPrintAux("", node, false);
 }
 
-void btreeFlushAux(PNode t) {
+static void btFlushAux(PNode t) {
     if (!t)
         return;
 
-    btreeFlushAux(t->left);
-    btreeFlushAux(t->right);
+    btFlushAux(t->left);
+    btFlushAux(t->right);
 
     delete t;
 }
-void btreeFlush(PNode t) {
-    btreeFlushAux(t);
+
+void btFlush(PNode t) {
+    btFlushAux(t);
 }
 
 int main() {
-    PNode root = btreeBuildBalanced(2, true);
-    btreePrint(root);
-    btreeFlush(root);
+    PNode root = btBuildBalanced(2);
+    btPrint(root);
+    btFlush(root);
 }

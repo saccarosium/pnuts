@@ -8,6 +8,7 @@ struct Node {
 
 typedef Node* PNode;
 
-void btreePrint(const PNode t);
-void btreeFlush(PNode t);
 PNode btBuildBalanced(int h);
+
+void btPrint(const PNode t);
+void btFlush(PNode t);
