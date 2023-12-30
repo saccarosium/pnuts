@@ -2,17 +2,8 @@
 #include <iostream>
 #include <random>
 
-PNode btreeBuildBalanced(int h, bool random) {
     if (h-- < 0)
         return nullptr;
-    int n = 1;
-    if (random) {
-        std::random_device rd;
-        std::uniform_int_distribution<int> dist(0, 99);
-        n = dist(rd);
-    }
-    return new Node{n, btreeBuildBalanced(h, random),
-                    btreeBuildBalanced(h, random)};
 }
 
 static void btreePrintAux(const std::string& prefix, const PNode node,
