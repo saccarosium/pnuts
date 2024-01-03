@@ -138,16 +138,4 @@ void flush(PNode t) {
     flush_aux(t);
 }
 
-int main() {
-    PNode root = btBuildBalanced(2);
-    btPrint(root);
-    std::vector<std::optional<int>> v = btBFS(root);
-    for (const auto& x : v)
-        if (x)
-            std::cout << x.value() << std::endl;
-        else
-            std::cout << 'N' << std::endl;
-    /* btPrint(root); */
-    btFlush(root);
-}
 } // namespace bt
