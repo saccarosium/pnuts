@@ -1,6 +1,7 @@
 #pragma once
 
 #include <optional>
+#include <string>
 #include <vector>
 
 struct Node {
@@ -11,11 +12,14 @@ struct Node {
 
 typedef Node* PNode;
 
-PNode btBuild(const std::vector<int>&& v);
-PNode btBuildBalanced(int h);
+namespace bt {
+PNode build(const std::vector<std::optional<int>>& v);
+PNode build(const std::vector<std::optional<int>>&& v);
+PNode build_balanced(int h);
 
-std::vector<std::optional<int>> btDFS(const PNode t);
-std::vector<std::optional<int>> btBFS(const PNode t);
+std::vector<std::optional<int>> dfs(const PNode t, std::string order);
+std::vector<std::optional<int>> bfs(const PNode t);
 
-void btPrint(const PNode t);
-void btFlush(PNode t);
+void print(const PNode t);
+void flush(PNode t);
+} // namespace bt
